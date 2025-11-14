@@ -23,7 +23,10 @@ jobs:
     needs: tag
     steps:
       - name: Publish Release
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           VERSION="${{needs.tag.outputs.version}}"
           TITLE="${VERSION#v}"
-          NOTE="Download Link:\n\n```wget https://tiup-mirrors.pingcap.com/cdc-$VERSION-linux-amd64.tar.gz\ndocker pull pingcap/ticdc:$VERSION```"
+          NOTE="Download Link:\n\n\`\`\`wget https://tiup-mirrors.pingcap.com/cdc-$VERSION-linux-amd64.tar.gz\ndocker pull pingcap/ticdc:$VERSION\`\`\`"
+          gh release create "$VERSION" --verify-tag -t "$TITLE" -n "$NOTE"
