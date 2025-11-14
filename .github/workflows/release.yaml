@@ -33,7 +33,8 @@ jobs:
           VERSION="${{needs.tag.outputs.version}}"
           TITLE="${VERSION#v}"
           NOTE="Download Link:
-          \`\`\`wget https://tiup-mirrors.pingcap.com/cdc-$VERSION-linux-amd64.tar.gz
+          \`\`\`
+          wget https://tiup-mirrors.pingcap.com/cdc-$VERSION-linux-amd64.tar.gz
           docker pull pingcap/ticdc:$VERSION
           \`\`\`"
           gh release create "$VERSION" --verify-tag -t "$TITLE" -n "$NOTE"
